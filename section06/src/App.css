@@ -2,6 +2,7 @@ body {
   padding: 20px;
 }
 
+/* 컴포넌트 중앙 정렬 */
 .App {
   margin: 0 auto;
   width: 400px;
