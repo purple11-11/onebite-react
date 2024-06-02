@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 // 간단한 회언가입 폼
 // 1. 이름
@@ -14,8 +14,12 @@ const Register = () => {
     bio: "",
   });
 
+  const countRef = useRef(0);
+  const inputRef = useRef();
+
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
+    countRef.current++;
+    console.log(countRef.current);
     setInput({
       ...input,
       // e.target.name 이 key 가 됨
@@ -23,10 +27,24 @@ const Register = () => {
     });
   };
 
+  const onSubmit = () => {
+    if (input.name === "") {
+      // 이름을 입력하는 DOM 요소 포커스
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <div>
       <div>
-        <input type="text" name="name" placeholder="이름" onChange={onChange} value={input.name} />
+        <input
+          ref={inputRef}
+          type="text"
+          name="name"
+          placeholder="이름"
+          onChange={onChange}
+          value={input.name}
+        />
       </div>
       <div>
         <input type="date" name="birth" onChange={onChange} value={input.birth} />
@@ -43,6 +61,7 @@ const Register = () => {
       <div>
         <textarea value={input.bio} name="bio" onChange={onChange} />
       </div>
+      <button onClick={onSubmit}>제출</button>
     </div>
   );
 };
